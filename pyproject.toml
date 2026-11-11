@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "glyphfix"
+version = "0.1.0"
+description = "Convert legacy-font text (Bijoy and other ANSI encodings) to proper Unicode."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "glyphfix contributors" }]
+keywords = ["bengali", "bijoy", "unicode", "legacy-font", "conversion"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Bengali",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = ["PyYAML>=5.4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://github.com/mosaddek93/glyphfix"
+Issues = "https://github.com/mosaddek93/glyphfix/issues"
+
+[project.scripts]
+glyphfix = "glyphfix.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/glyphfix"]
+
+# Ship the encoding data files inside the installed package.
+[tool.hatch.build.targets.wheel.force-include]
+"encodings" = "glyphfix/encodings"
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/encodings", "/tests", "/docs", "/README.md", "/LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
