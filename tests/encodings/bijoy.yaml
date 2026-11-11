@@ -118,3 +118,67 @@ cases:
   - name: ja-and-dha
     legacy: "hLb dj avb"
     unicode: "যখন ফল ধান"
+
+  - name: conjunct-kta
+    legacy: "kw³"
+    unicode: "শক্তি"
+
+  - name: conjunct-kta-2
+    legacy: "gyw³"
+    unicode: "মুক্তি"
+
+  - name: conjunct-sha-ba
+    legacy: "wek^"
+    unicode: "বিশ্ব"
+
+  - name: reph-rma
+    legacy: "Kg©"
+    unicode: "কর্ম"
+
+  - name: reph-rcha
+    legacy: "gv©P"
+    unicode: "মার্চ"
+
+  - name: reph-rtaba
+    legacy: "KZ©e¨"
+    unicode: "কর্তব্য"
+
+  - name: candrabindu
+    legacy: "Pvu`"
+    unicode: "চাঁদ"
+
+  - name: conjunct-kha-ya
+    legacy: "msL¨v"
+    unicode: "সংখ্যা"
+
+  - name: conjunct-mpa
+    legacy: "m¤úK©"
+    unicode: "সম্পর্ক"
+
+  - name: conjunct-nma
+    legacy: "Rb¥"
+    unicode: "জন্ম"
+
+  - name: conjunct-shta-ra
+    legacy: "ivóª"
+    unicode: "রাষ্ট্র"
+
+  - name: conjunct-ska
+    legacy: "¯‹zj"
+    unicode: "স্কুল"
+
+  - name: conjunct-ndha
+    legacy: "eÜz"
+    unicode: "বন্ধু"
+
+  - name: conjunct-swa
+    legacy: "¯^vaxbZv"
+    unicode: "স্বাধীনতা"
+
+  - name: conjunct-ndo-e-kar
+    legacy: "Av‡›`vjb"
+    unicode: "আন্দোলন"
+
+  - name: contextual-u-kar
+    legacy: "ïay"
+    unicode: "শুধু"
