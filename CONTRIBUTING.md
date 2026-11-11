@@ -11,7 +11,8 @@ documentation.
   sample text in the target script, which the converter needs as test data.
 - **Permissive dependencies only**: runtime and test dependencies must be
   MIT, Apache-2.0 or BSD licensed. Do not copy code or data tables from
-  projects under other licenses; see [docs/sources.md](docs/sources.md) for
+  projects under other licenses, and do not consult GPL-licensed sources at
+  all when working on mappings; see [docs/sources.md](docs/sources.md) for
   how references are recorded.
 - **Small, focused pull requests**: one topic per pull request. Describe what
   works, how you tested it, and what is still missing.

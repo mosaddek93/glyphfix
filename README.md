@@ -7,7 +7,7 @@
 
 **Turn broken legacy-font text into proper Unicode. Open, community-driven, and built for the world's scripts.**
 
-Millions of documents in South Asia and beyond (government notices, textbooks, newspapers, court records, archives) were typed with *legacy fonts* such as Bijoy, Kruti Dev or Preeti. These fonts store text as plain Latin characters and rely on a special font to draw the right shapes. Copy such text, or extract it from a PDF, and you get gibberish like `Avwg evsjv ewj` instead of `আমি বাংলা বলি`.
+Millions of documents in South Asia and beyond (government notices, textbooks, newspapers, court records, archives) were typed with *legacy fonts* such as Bijoy, Kruti Dev or Preeti. These fonts store text as plain Latin characters and rely on a special font to draw the right shapes. Copy such text, or extract it from a PDF, and you get gibberish like ``Avwg evsjv ewj`` instead of ``আমি বাংলা বলি``.
 
 `glyphfix` converts legacy-font text to standard Unicode, so it becomes searchable, copyable, accessible to screen readers, and usable in modern software.
 

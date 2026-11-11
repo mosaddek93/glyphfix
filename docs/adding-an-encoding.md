@@ -39,7 +39,7 @@ Rules of thumb:
 - **Keys can be more than one character.** The converter always applies the
   longest matching key first, so `"Av"` wins over `"A"` followed by `"v"`.
 - **Values can be more than one code point**, for example a consonant plus a
-  virama for a conjunct part (`"¨": "্য"`).
+  virama for a conjunct part (``"¨": "্য"``).
 - **Quote both keys and values.** Characters such as `` ` ``, `&`, `|`, `~`
   and digits have special meaning in YAML when unquoted.
 - Characters without a mapping pass through unchanged, so you do not need to
@@ -65,7 +65,7 @@ and `ে` + `প্র` becomes `প্র` + `ে`.
 
 After reordering, the output is normalised to NFC. This composes two-part
 vowel signs automatically: you can map the right half of a two-part vowel
-(for example Bijoy `"Š": "ৗ"`) and `ে` + `ৗ` will compose to `ৌ`.
+(for example Bijoy ``"Š": "ৗ"``) and `ে` + `ৗ` will compose to `ৌ`.
 
 If your encoding needs a rule type that does not exist yet (for example reph
 handling), open an issue describing the behavior with examples.
@@ -114,9 +114,12 @@ echo "Avwg evsjv ewj" | glyphfix text --encoding <id>
 - In the description, note which fonts and sample documents you tested with,
   and which characters or conjuncts are still missing.
 - Do not copy mapping tables from other converters unless their license is
-  MIT, Apache-2.0 or BSD. Derive the mapping from the keyboard layout, font
-  documentation or real documents, and record what you consulted in
-  [docs/sources.md](sources.md).
+  MIT, Apache-2.0 or BSD, and do not consult GPL-licensed sources at all.
+  Derive the mapping from the keyboard layout, font documentation or real
+  documents, and record what you consulted in [docs/sources.md](sources.md).
+- When writing docs, put legacy-text examples in fenced code blocks or
+  double-backtick code spans: legacy text can contain Markdown-significant
+  characters such as the backtick (the Bijoy key for দ).
 
 Native speakers are the best reviewers. If you can read the script, please
 review encoding pull requests even if you do not write code.
