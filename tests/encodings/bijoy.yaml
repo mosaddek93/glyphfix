@@ -182,3 +182,35 @@ cases:
   - name: contextual-u-kar
     legacy: "ïay"
     unicode: "শুধু"
+
+  - name: contextual-gu
+    legacy: "¸Y"
+    unicode: "গুণ"
+
+  - name: contextual-hu
+    legacy: "ûgwK"
+    unicode: "হুমকি"
+
+  - name: contextual-hri
+    legacy: "ü`q"
+    unicode: "হৃদয়"
+
+  - name: alternate-uu-kar
+    legacy: "`~i"
+    unicode: "দূর"
+
+  - name: alternate-pre-base-oi-kar
+    legacy: "‰`wbK"
+    unicode: "দৈনিক"
+
+  - name: candrabindu-before-vowel-sign
+    legacy: "Puv`"
+    unicode: "চাঁদ"
+
+  - name: escaped-ampersand-is-literal
+    legacy: 'R¨vK \& wRj'
+    unicode: "জ্যাক & জিল"
+
+  - name: escaped-danda-is-literal
+    legacy: 'GK \| `yB'
+    unicode: "এক | দুই"

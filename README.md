@@ -25,18 +25,18 @@ $ echo "Avwg evsjv ewj" | glyphfix text --encoding bijoy
 ## Features
 
 - **Data-driven encodings**: every legacy encoding lives in a human-readable YAML file under `encodings/`. Adding a new one does not require changing the core code.
-- **Vowel-sign reordering**: handles signs typed in visual order (before the consonant) and moves them to logical Unicode order, including across conjunct clusters.
+- **Sign reordering**: handles vowel signs typed in visual order (before the consonant), reph typed after its consonant, and candrabindu typed before a vowel sign, moving them all to logical Unicode order, including across conjunct clusters.
 - **CLI and Python library**: use it in a terminal, a script or a data pipeline.
 - **Fully offline**: no file is ever uploaded; everything runs locally.
 - **Tested against real examples**: each encoding ships with before/after golden test pairs.
 
-Planned (not implemented yet, see the [Roadmap](#roadmap)): PDF text extraction, per-page auto-detection of Unicode/legacy/scanned content, OCR fallback via Tesseract, and full conjunct/reph handling.
+Planned (not implemented yet, see the [Roadmap](#roadmap)): PDF text extraction, per-page auto-detection of Unicode/legacy/scanned content, OCR fallback via Tesseract, and the long tail of rarer precomposed conjunct glyphs.
 
 ## Supported encodings
 
 | Script | Encoding / font family | Status |
 |---|---|---|
-| Bengali | Bijoy / SutonnyMJ | In progress: base characters and vowel-sign reordering work; conjunct glyphs and reph are pending |
+| Bengali | Bijoy / SutonnyMJ | In progress: base characters, sign reordering (pre-base vowels, reph, candrabindu) and the common precomposed conjunct glyphs work; rarer conjunct glyphs are still being added |
 | Devanagari (Hindi) | Kruti Dev | Planned, help wanted |
 | Devanagari (Nepali) | Preeti | Planned, help wanted |
 | Tamil | Bamini | Planned, help wanted |
@@ -161,7 +161,8 @@ pytest
 ## Roadmap
 
 - [x] Bijoy to Unicode: base characters and vowel-sign reordering
-- [ ] Bijoy conjunct glyphs, reph and candrabindu reordering
+- [x] Bijoy conjunct glyphs (common), reph and candrabindu reordering
+- [ ] Remaining rarer Bijoy precomposed conjunct glyphs
 - [ ] PDF text extraction (pdfminer.six) with `glyphfix pdf` and `glyphfix detect`
 - [ ] Auto-detection: classify each page as Unicode, legacy or scanned
 - [ ] OCR fallback for scanned pages (pypdfium2 + Tesseract)
@@ -181,7 +182,8 @@ pytest
 
 ## Limitations
 
-- Conversion quality depends on the encoding file. For Bijoy, precomposed conjunct glyphs, reph and candrabindu reordering are not handled yet; please report wrong output.
+- Conversion quality depends on the encoding file. For Bijoy, the common precomposed conjunct glyphs, reph and candrabindu reordering are handled, but only the conjunct glyphs covered by the golden tests are mapped so far; rarer upper-ANSI conjunct glyphs pass through unchanged. Please report wrong output.
+- Reph handling is heuristic: a reph directly after a consonant is moved before that cluster, otherwise it is left in place. Real Bijoy text types reph with its dedicated key, which this matches; the unusual spelling of র + explicit hasanta via ``i&`` directly before another consonant would be misread as a reph.
 - Mixed legacy-script and English text cannot be told apart within one string, because legacy encodings reuse the Latin character range.
 - PDF handling, auto-detection and OCR are not implemented yet.
 

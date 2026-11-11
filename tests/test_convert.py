@@ -3,7 +3,12 @@
 import pytest
 
 from glyphfix import convert_text, load_encoding
-from glyphfix.convert import _apply_mappings, _reorder_pre_base_signs
+from glyphfix.convert import (
+    _apply_mappings,
+    _reorder_pre_base_signs,
+    _reorder_reph,
+    _reorder_signs_after_vowel_signs,
+)
 
 
 def test_longest_match_wins():
@@ -53,6 +58,44 @@ def test_reorder_moves_sign_after_nukta():
 def test_reorder_sign_without_following_base_stays_in_place():
     assert _reorder_pre_base_signs("\u09bf", {"\u09bf"}) == "\u09bf"
     assert _reorder_pre_base_signs("\u09bf ", {"\u09bf"}) == "\u09bf "
+
+
+_REPH = "\u09b0\u09cd"  # ra + virama
+
+
+def test_reph_after_consonant_moves_before_it():
+    # ka + ma + reph -> ka + reph + ma
+    assert _reorder_reph("\u0995\u09ae" + _REPH, [_REPH]) == "\u0995" + _REPH + "\u09ae"
+
+
+def test_reph_after_consonant_moves_before_whole_cluster():
+    # ta + virama + ma + reph -> reph + ta + virama + ma
+    cluster = "\u09a4\u09cd\u09ae"
+    assert _reorder_reph(cluster + _REPH, [_REPH]) == _REPH + cluster
+
+
+def test_reph_after_vowel_sign_stays_in_place():
+    # ma + aa-kar + reph + ca is already in logical order.
+    text = "\u09ae\u09be" + _REPH + "\u099a"
+    assert _reorder_reph(text, [_REPH]) == text
+
+
+def test_candrabindu_moves_after_vowel_sign():
+    # ca + candrabindu + aa-kar + da -> ca + aa-kar + candrabindu + da
+    text = "\u099a\u0981\u09be\u09a6"
+    expected = "\u099a\u09be\u0981\u09a6"
+    assert _reorder_signs_after_vowel_signs(text, {"\u0981"}) == expected
+
+
+def test_candrabindu_already_after_vowel_sign_stays():
+    text = "\u099a\u09be\u0981\u09a6"
+    assert _reorder_signs_after_vowel_signs(text, {"\u0981"}) == text
+
+
+def test_half_form_plus_phala_shares_one_virama():
+    # Bijoy half form "¯" (sa + virama) + phala "‹" (virama + ka): the doubled
+    # virama must collapse so the result is a valid conjunct.
+    assert convert_text("\u00af\u2039", "bijoy") == "\u09b8\u09cd\u0995"
 
 
 def test_unknown_encoding_raises():

@@ -53,22 +53,43 @@ Legacy fonts store some signs in *visual* order while Unicode requires
 
 ```yaml
 reorder:
+  - type: reph
+    signs: ["র্"]
   - type: pre-base-vowel-sign
     signs: ["ি", "ে", "ৈ"]
+  - type: sign-after-vowel-sign
+    signs: ["ঁ"]
 ```
 
-`pre-base-vowel-sign` is currently the only rule type. It handles signs that
-are typed **before** the consonant they attach to: after mapping, each listed
-sign is moved after the following consonant cluster (a letter optionally
-extended by virama + letter pairs). For example `ি` + `ক` becomes `ক` + `ি`,
-and `ে` + `প্র` becomes `প্র` + `ে`.
+Rules run in the order they are listed. Three rule types exist:
+
+- `pre-base-vowel-sign` handles signs that are typed **before** the consonant
+  they attach to: after mapping, each listed sign is moved after the
+  following consonant cluster (a letter optionally extended by virama +
+  letter pairs). For example `ি` + `ক` becomes `ক` + `ি`, and `ে` + `প্র`
+  becomes `প্র` + `ে`.
+- `reph` handles a repha that is typed **after** the consonant it sits above:
+  each listed sign (usually the consonant + virama pair `র্`) that directly
+  follows a letter is moved before that consonant cluster. A reph that does
+  not directly follow a letter (for example after a vowel sign) is already in
+  logical position and stays. List `reph` before `pre-base-vowel-sign` so a
+  pre-base sign typed in front of the same consonant still finds the full
+  cluster.
+- `sign-after-vowel-sign` handles signs (such as the candrabindu) that are
+  typed before a dependent vowel sign but must follow it in Unicode: `চ` +
+  `ঁ` + `া` becomes `চ` + `া` + `ঁ`.
+
+Before the reorder rules run, consecutive viramas are collapsed into one.
+This lets you map conjunct glyph halves independently: a half form with a
+trailing virama (Bijoy ``"¯": "স্"``) and a phala form with a leading one
+(``"‹": "্ক"``) combine into a single valid cluster (`স্ক`).
 
 After reordering, the output is normalised to NFC. This composes two-part
 vowel signs automatically: you can map the right half of a two-part vowel
 (for example Bijoy ``"Š": "ৗ"``) and `ে` + `ৗ` will compose to `ৌ`.
 
-If your encoding needs a rule type that does not exist yet (for example reph
-handling), open an issue describing the behavior with examples.
+If your encoding needs a rule type that does not exist yet, open an issue
+describing the behavior with examples.
 
 ## 2. Add golden test pairs
 
