@@ -3,13 +3,14 @@
 # Bijoy-encoded text stores Bengali as Latin/Windows-1252 code points and
 # relies on fonts such as SutonnyMJ to draw the right glyphs. This file maps
 # those code points back to Unicode Bengali. The converter applies the
-# longest matching key first, then runs the reorder rules, then normalises
-# to NFC (which composes two-part vowel signs such as e-kar + aa-kar -> o-kar).
+# longest matching key first, collapses doubled viramas (a half-form glyph
+# and a phala glyph each carry one), then runs the reorder rules, then
+# normalises to NFC (which composes two-part vowel signs such as
+# e-kar + aa-kar -> o-kar).
 #
-# Known gaps (see the project roadmap):
-#   - precomposed conjunct glyphs from the upper ANSI range are not mapped yet
-#   - reph (post-base "r" that belongs before the cluster) is not handled
-#   - candrabindu typed before a vowel sign is not reordered
+# Known gaps (see the project roadmap): only the precomposed conjunct glyphs
+# exercised by the golden tests are mapped so far. The rarer upper-ANSI
+# conjunct glyphs are not mapped yet and pass through unchanged.
 
 id: bijoy
 name: "Bijoy (SutonnyMJ and compatible fonts)"
@@ -86,19 +87,50 @@ mappings:
   "y": "ু"
   "z": "ু"
   "ƒ": "ূ"
+  "~": "ূ"
   "„": "ৃ"
   "†": "ে"
   "‡": "ে"
   "ˆ": "ৈ"
+  "‰": "ৈ"
   "Š": "ৗ"
 
-  # Joining marks.
+  # Contextual glyphs: consonant + u-kar/ri-kar drawn as one glyph.
+  "¸": "গু"
+  "ï": "শু"
+  "û": "হু"
+  "ü": "হৃ"
+
+  # Precomposed conjunct glyphs from the upper ANSI range. Full conjuncts map
+  # to the whole cluster. Half forms (left/top part) end with a virama and
+  # phala forms (bottom part) start with one; when a half form meets a phala
+  # form the converter collapses the doubled virama, so both "¤ú" (half form
+  # + phala) and "¤c" (half form + full consonant) yield the same cluster.
+  "³": "ক্ত"
+  "Ü": "ন্ধ"
+  "ó": "ষ্ট"
+  "›": "ন্"
+  "¤": "ম্"
+  "¯": "স্"
+  "‹": "্ক"
+  "ú": "্প"
+  "^": "্ব"
+  "¥": "্ম"
+
+  # Reph: in Bijoy the reph glyph is usually typed after the consonant it
+  # sits above; the "reph" reorder rule below moves it before that cluster.
+  "©": "র্"
+
+  # Joining marks. In a Bijoy font the bare "&" renders as the hasanta, so it
+  # maps to the virama; write "\&" for a literal ampersand.
   "¨": "্য"
   "Ö": "্র"
   "ª": "্র"
   "&": "্"
+  "\\&": "&"
 
-  # Digits and punctuation.
+  # Digits and punctuation. The bare "|" renders as the danda; write "\|"
+  # for a literal pipe.
   "0": "০"
   "1": "১"
   "2": "২"
@@ -110,9 +142,16 @@ mappings:
   "8": "৮"
   "9": "৯"
   "|": "।"
+  "\\|": "|"
 
 reorder:
-  # Visual order -> logical order: these signs are typed before the consonant
-  # cluster they attach to and must move after it in Unicode.
+  # Visual order -> logical order. The reph is typed after the consonant it
+  # belongs before; it must move first so that a pre-base sign typed before
+  # the same consonant still finds the full cluster.
+  - type: "reph"
+    signs: ["র্"]
   - type: "pre-base-vowel-sign"
     signs: ["ি", "ে", "ৈ"]
+  # Candrabindu is typed before the vowel sign it must follow in Unicode.
+  - type: "sign-after-vowel-sign"
+    signs: ["ঁ"]

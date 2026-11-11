@@ -24,7 +24,7 @@ __all__ = [
 ]
 
 #: Reorder rule types understood by the converter.
-REORDER_TYPES = frozenset({"pre-base-vowel-sign"})
+REORDER_TYPES = frozenset({"pre-base-vowel-sign", "reph", "sign-after-vowel-sign"})
 
 
 class EncodingError(ValueError):

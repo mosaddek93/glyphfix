@@ -39,20 +39,33 @@ No code or data tables were copied from any of these references.
 
 ### Cross-check results
 
-Every entry in `encodings/bijoy.yaml` agrees with all three MIT-licensed
-references. The cross-check also surfaced entries those references have and
-ours does not yet (missing entries, not conflicts):
+Every entry in `encodings/bijoy.yaml` agrees with the MIT-licensed
+references. The entries recorded here as missing in earlier revisions
+(alternate ``~`` and ``‰`` kar keys, and the contextual glyphs ``¸``, ``ï``,
+``û``, ``ü``) are now mapped, each with a golden test. The conjunct glyph
+entries added for milestone 2 (``³``, ``Ü``, ``ó``, ``›``, ``¤``, ``¯``,
+``‹``, ``ú``, ``^``, ``¥``, and the reph ``©``) were cross-checked entry by
+entry against bijoy2unicode and against poriborton's inverse table, and are
+validated by golden tests built from real Bengali words. At the time of this
+cross-check the bijoy_helper repository was no longer reachable on GitHub, so
+the new entries could not be re-verified against it.
 
-| Bijoy input | Unicode | Where seen | Status in glyphfix |
-|---|---|---|---|
-| ``~`` | ূ (alternate uu-kar key) | bijoy2unicode, bijoy_helper, poriborton | Not mapped yet. |
-| ``‰`` | ৈ (alternate pre-base oi-kar) | bijoy2unicode, bijoy_helper, poriborton | Not mapped yet. |
-| contextual u-kar/uu-kar/ri-kar glyphs (e.g. ``¸``, ``ï``, ``û``, ``ü``) | ু / ূ / ৃ variants after specific consonants | poriborton | Not mapped yet; part of the known precomposed-glyph gap. |
+One segmentation difference, with identical output: bijoy2unicode maps the
+half forms with a trailing virama (``¤`` is ম্) and the phala forms with a
+leading one (``ú`` is ্প), while poriborton's inverse table emits pairs such
+as ``¤c`` (half form + full consonant) for the same cluster. glyphfix follows
+the bijoy2unicode segmentation and collapses the doubled virama that appears
+when a half form meets a phala form, so both the ``¤ú`` and ``¤c`` spellings
+of ম্প convert to the same Unicode.
 
-One representational difference: glyphfix maps bare ``&`` to the virama and
-``|`` to the danda, as poriborton's inverse table does; bijoy2unicode and
-bijoy_helper only map the escaped forms ``\&`` and ``\|``. This is a
-difference in input conventions, not in character identity.
+Input conventions for the ``&`` and ``|`` keys: in a Bijoy font the bare
+``&`` renders as the hasanta and the bare ``|`` as the danda, so glyphfix
+maps bare ``&`` to the virama and bare ``|`` to the danda, as poriborton's
+inverse table does. The escaped forms ``\&`` and ``\|`` produce a literal
+ampersand and pipe in the output. bijoy2unicode uses the opposite convention
+(bare ``&`` and ``|`` stay literal, and the escaped forms produce virama +
+zero-width non-joiner and the danda); this is a difference in input
+conventions, not in character identity.
 
 ## How to add entries
 
