@@ -1,0 +1,120 @@
+# Golden test pairs for the Bijoy encoding.
+#
+# Each case gives legacy (Bijoy-encoded) input and the expected Unicode
+# output. The Bengali text here is intentional test data; everything else in
+# the repository is in English.
+
+encoding: bijoy
+
+cases:
+  - name: simple-sentence
+    legacy: "Avwg evsjv ewj"
+    unicode: "আমি বাংলা বলি"
+
+  - name: anusvara
+    legacy: "evsjv‡`k"
+    unicode: "বাংলাদেশ"
+
+  - name: pre-base-e-kar
+    legacy: "†`k"
+    unicode: "দেশ"
+
+  - name: aa-kar-only
+    legacy: "fvjevmv"
+    unicode: "ভালবাসা"
+
+  - name: independent-aa
+    legacy: "Avgvi bvg"
+    unicode: "আমার নাম"
+
+  - name: pre-base-oi-kar
+    legacy: "ˆZwi"
+    unicode: "তৈরি"
+
+  - name: two-part-o-kar
+    legacy: "†fvU"
+    unicode: "ভোট"
+
+  - name: two-part-au-kar
+    legacy: "†`Šov‡bv"
+    unicode: "দৌড়ানো"
+
+  - name: ra-phala
+    legacy: "cÖ_g cvZv"
+    unicode: "প্রথম পাতা"
+
+  - name: e-kar-before-conjunct-cluster
+    legacy: "†cÖg"
+    unicode: "প্রেম"
+
+  - name: ya-phala
+    legacy: "e¨emv"
+    unicode: "ব্যবসা"
+
+  - name: explicit-hasanta
+    legacy: "wjd&U"
+    unicode: "লিফ্ট"
+
+  - name: digits-and-danda
+    legacy: "GLv‡b 5 Rb|"
+    unicode: "এখানে ৫ জন।"
+
+  - name: unmapped-punctuation-passes-through
+    legacy: "Zzwg wK Avm‡e?"
+    unicode: "তুমি কি আসবে?"
+
+  - name: i-kar-and-ii-kar
+    legacy: "ivRbxwZ"
+    unicode: "রাজনীতি"
+
+  - name: u-kar
+    legacy: "myL"
+    unicode: "সুখ"
+
+  - name: uu-kar
+    legacy: "iƒc"
+    unicode: "রূপ"
+
+  - name: visarga
+    legacy: "`ytL"
+    unicode: "দুঃখ"
+
+  - name: khanda-ta
+    legacy: "nVvr"
+    unicode: "হঠাৎ"
+
+  - name: retroflex-na
+    legacy: "KviY"
+    unicode: "কারণ"
+
+  - name: independent-vowels
+    legacy: "C` Dcnvi IRb Jla"
+    unicode: "ঈদ উপহার ওজন ঔষধ"
+
+  - name: independent-oi
+    legacy: "HwZnvwmK"
+    unicode: "ঐতিহাসিক"
+
+  - name: rra
+    legacy: "So"
+    unicode: "ঝড়"
+
+  - name: more-consonants
+    legacy: "XvKv kni"
+    unicode: "ঢাকা শহর"
+
+  - name: common-words
+    legacy: "gvbyl `yB UvKv"
+    unicode: "মানুষ দুই টাকা"
+
+  - name: antya-ya
+    legacy: "fq"
+    unicode: "ভয়"
+
+  - name: cha-and-gha
+    legacy: "Qwe Nwo"
+    unicode: "ছবি ঘড়ি"
+
+  - name: ja-and-dha
+    legacy: "hLb dj avb"
+    unicode: "যখন ফল ধান"

@@ -1,0 +1,118 @@
+# Bijoy (ANSI) to Unicode mapping for Bengali.
+#
+# Bijoy-encoded text stores Bengali as Latin/Windows-1252 code points and
+# relies on fonts such as SutonnyMJ to draw the right glyphs. This file maps
+# those code points back to Unicode Bengali. The converter applies the
+# longest matching key first, then runs the reorder rules, then normalises
+# to NFC (which composes two-part vowel signs such as e-kar + aa-kar -> o-kar).
+#
+# Known gaps (see the project roadmap):
+#   - precomposed conjunct glyphs from the upper ANSI range are not mapped yet
+#   - reph (post-base "r" that belongs before the cluster) is not handled
+#   - candrabindu typed before a vowel sign is not reordered
+
+id: bijoy
+name: "Bijoy (SutonnyMJ and compatible fonts)"
+script: "Bengali"
+language: "bn"
+fonts: ["SutonnyMJ", "SutonnyOMJ"]
+status: "in-progress"
+
+mappings:
+  # Independent vowels. "Av" must map as a unit: "A" is the vowel letter and
+  # "v" the aa-sign, but together they form the independent letter "আ".
+  "Av": "আ"
+  "A": "অ"
+  "B": "ই"
+  "C": "ঈ"
+  "D": "উ"
+  "E": "ঊ"
+  "F": "ঋ"
+  "G": "এ"
+  "H": "ঐ"
+  "I": "ও"
+  "J": "ঔ"
+
+  # Consonants.
+  "K": "ক"
+  "L": "খ"
+  "M": "গ"
+  "N": "ঘ"
+  "O": "ঙ"
+  "P": "চ"
+  "Q": "ছ"
+  "R": "জ"
+  "S": "ঝ"
+  "T": "ঞ"
+  "U": "ট"
+  "V": "ঠ"
+  "W": "ড"
+  "X": "ঢ"
+  "Y": "ণ"
+  "Z": "ত"
+  "_": "থ"
+  "`": "দ"
+  "a": "ধ"
+  "b": "ন"
+  "c": "প"
+  "d": "ফ"
+  "e": "ব"
+  "f": "ভ"
+  "g": "ম"
+  "h": "য"
+  "i": "র"
+  "j": "ল"
+  "k": "শ"
+  "l": "ষ"
+  "m": "স"
+  "n": "হ"
+  "o": "ড়"
+  "p": "ঢ়"
+  "q": "য়"
+  "r": "ৎ"
+
+  # Signs.
+  "s": "ং"
+  "t": "ঃ"
+  "u": "ঁ"
+
+  # Dependent vowel signs. "†"/"‡" (e-kar) and "ˆ" (oi-kar) are typed before
+  # the consonant in Bijoy; the reorder rule below moves them after it.
+  # "Š" is the right half of o-kar/au-kar; NFC composes e-kar + "ৗ" into
+  # au-kar and e-kar + aa-kar into o-kar.
+  "v": "া"
+  "w": "ি"
+  "x": "ী"
+  "y": "ু"
+  "z": "ু"
+  "ƒ": "ূ"
+  "„": "ৃ"
+  "†": "ে"
+  "‡": "ে"
+  "ˆ": "ৈ"
+  "Š": "ৗ"
+
+  # Joining marks.
+  "¨": "্য"
+  "Ö": "্র"
+  "ª": "্র"
+  "&": "্"
+
+  # Digits and punctuation.
+  "0": "০"
+  "1": "১"
+  "2": "২"
+  "3": "৩"
+  "4": "৪"
+  "5": "৫"
+  "6": "৬"
+  "7": "৭"
+  "8": "৮"
+  "9": "৯"
+  "|": "।"
+
+reorder:
+  # Visual order -> logical order: these signs are typed before the consonant
+  # cluster they attach to and must move after it in Unicode.
+  - type: "pre-base-vowel-sign"
+    signs: ["ি", "ে", "ৈ"]
